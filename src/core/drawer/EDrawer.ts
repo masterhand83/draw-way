@@ -14,17 +14,19 @@ export class EDrawer {
             this.drawLine(element, config);
         }
     }
+
     private drawNode(node: GNode, config: AccionConfig){
         this.drawer.draw((ctx:CanvasRenderingContext2D) =>{
             ctx.arc(node.x,node.y,node.radius,0,Math.PI * 2);
         },config);
     }
+
     private drawLine(line: GLine, config:AccionConfig){
+        if(line.color != "") config.strokecolor = line.color;
         this.drawer.draw((ctx:CanvasRenderingContext2D) =>{
-            ctx.moveTo(line.x, line.y - line.grosor);
-            ctx.lineTo(line.x1, line.y1 - line.grosor);
-            ctx.lineTo(line.x1, line.y1 + line.grosor);
-            ctx.lineTo(line.x, line.y+line.grosor);
+            ctx.lineWidth = line.grosor;
+            ctx.moveTo(line.x, line.y);
+            ctx.lineTo(line.x1, line.y1);
         },config);
     }
 }

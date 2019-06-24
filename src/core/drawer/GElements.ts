@@ -9,7 +9,7 @@ export class GNode implements GElement {
     constructor(x:number, y:number) {
         this.x = x;
         this.y = y;
-        this.radius = 10;
+        this.radius = 15;
     }
 }
 export class GLine implements GElement {
@@ -18,11 +18,13 @@ export class GLine implements GElement {
     x1: number;
     y1: number;
     grosor: number;
+    color?: string;
     constructor(x: number, y: number, x1: number, y1: number) {
         this.x = x;
         this.y = y;
         this.x1 = x1;
         this.y1 = y1;
-        this.grosor = 10;
+        this.grosor = 19;
+        this.color = ""
     }
 }

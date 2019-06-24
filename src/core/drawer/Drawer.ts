@@ -16,6 +16,7 @@ export interface AccionConfig {
     fill?: boolean;
     fillcolor?: string;
     strokecolor?: string;
+    isPath?: boolean;
 }
 /**
  * Drawer es la clase base para todas las acciones de dibujo relacionados con HTMLCanvas.
@@ -27,6 +28,8 @@ export class Drawer {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     config: DConfig;
+    private readonly def_fillStyle = "#FFF";
+    private readonly def_strokeStyle = "#000";
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = <HTMLCanvasElement>canvas;
         this.ctx = this.canvas.getContext('2d');
@@ -53,8 +56,11 @@ export class Drawer {
      * @param config la configuracion inicial de la acción
      */
     draw(fn:(context: CanvasRenderingContext2D) => void, config: AccionConfig){
-        if (config.fillcolor != "") this.ctx.fillStyle = config.fillcolor;
-        if (config.strokecolor != "") this.ctx.strokeStyle = config.strokecolor;
+        this.ctx.fillStyle = this.def_fillStyle;
+        this.ctx.strokeStyle = this.def_strokeStyle;
+        this.ctx.lineWidth = 1;
+        if (config.fillcolor) this.ctx.fillStyle = config.fillcolor;
+        if (config.strokecolor) this.ctx.strokeStyle = config.strokecolor;
 
         this.ctx.beginPath();
 
@@ -64,7 +70,6 @@ export class Drawer {
 
         if (config.fill) this.ctx.fill();
         if (config.stroke) this.ctx.stroke();
-        this.ctx.restore();
     }
     restaurarPagina(){
         this.ctx.clearRect(0,0,this.canvas.width, this.canvas.height);

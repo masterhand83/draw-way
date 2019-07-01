@@ -1,4 +1,4 @@
-import { GNode, GLine } from "./GElements";
+import { GNode, GLine, GText } from "./GElements";
 import { EDrawer } from "./EDrawer";
 import { AccionConfig } from "./Drawer";
 export interface IPath{
@@ -25,7 +25,6 @@ export class Path{
     }
 
     build(nodeConfig: AccionConfig, lineConfig: AccionConfig){
-        console.log(this.edrawer);
         for (let i = 0; i < this.nodes.length; i++) {
             let node = this.nodes[i];
             if (i + 1 < this.nodes.length) {
@@ -37,11 +36,16 @@ export class Path{
 
                 this.edrawer.drawElement(line, lineConfig)
             }
-            this.edrawer.drawElement(node, nodeConfig);
+            this.drawNode(node,nodeConfig);
         }
     }
-    private createNode(node: GNode) {
-        this.edrawer.drawElement(node,{})
+    private drawNode(node: GNode, config: AccionConfig) {
+        let textX = node.x - node.radius;
+        let texY = node.y - 5 -node.radius;
+        this.edrawer.drawElement(node, config);
+        if (node.name) {
+            this.edrawer.drawElement(new GText(textX, texY, node.name), null);
+        }
     }
     private LineBetweenNodes(node1: GNode, node2: GNode): GLine{
         return (new GLine(

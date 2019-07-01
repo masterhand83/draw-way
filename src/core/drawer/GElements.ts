@@ -2,14 +2,30 @@ export interface GElement {
     x: number;
     y: number;
 }
+export class GText implements GElement {
+    x: number;
+    y:number;
+    text: string;
+    constructor(x: number, y: number, text: string){
+        this.x = x;
+        this.y = y;
+        this.text = text;
+    }
+}
 export class GNode implements GElement {
     x: number;
     y: number;
     radius: number;
-    constructor(x:number, y:number) {
+    name: string;
+    constructor(x:number, y:number, name?: string) {
         this.x = x;
         this.y = y;
         this.radius = 15;
+        if(name != ''){
+            this.name = name
+        }else{
+            this.name = ".";
+        };
     }
 }
 export class GLine implements GElement {

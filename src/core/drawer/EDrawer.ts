@@ -1,5 +1,5 @@
 import { Drawer, AccionConfig } from "./Drawer";
-import { GElement, GNode, GLine } from "./GElements";
+import { GElement, GNode, GLine, GText } from "./GElements";
 
 export class EDrawer {
     drawer: Drawer;
@@ -13,8 +13,16 @@ export class EDrawer {
         if (element instanceof GLine) {
             this.drawLine(element, config);
         }
+        if (element instanceof GText) {
+            this.drawText(element);
+        }
     }
 
+    private drawText(text: GText){
+        this.drawer.draw((ctx: CanvasRenderingContext2D) =>{
+            ctx.fillText(text.text,text.x,text.y);
+        },{fill: true, fillcolor: 'black'});
+    }
     private drawNode(node: GNode, config: AccionConfig){
         this.drawer.draw((ctx:CanvasRenderingContext2D) =>{
             ctx.arc(node.x,node.y,node.radius,0,Math.PI * 2);

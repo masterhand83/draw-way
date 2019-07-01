@@ -1,6 +1,6 @@
-import { Path, IPath } from "../Path";
-import { Drawer } from "../Drawer";
-import { EDrawer } from "../EDrawer";
+import { Path, IPath } from "./Path";
+import { Drawer } from "./Drawer";
+import { EDrawer } from "./EDrawer";
 
 export class GridBuilder{
     scale: number;
@@ -27,10 +27,9 @@ export class GridBuilder{
     }
     build(){
         this.drawer.inicializar();
-        console.log(this.paths);
         if (this.paths.length > 0) {
             for (const path of this.paths) {
-                path.build({ stroke: true, fill: true },
+                path.build({ stroke: true, fill: true, textColor: "red" },
                     { stroke: true, strokecolor: "#54C7FF" });
             }
         }

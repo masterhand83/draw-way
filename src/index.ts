@@ -2,40 +2,27 @@ import { Drawer} from "./core/drawer/Drawer";
 import { GNode, GLine } from "./core/drawer/GElements";
 import { EDrawer } from "./core/drawer/EDrawer";
 import { Path, IPath } from "./core/drawer/Path";
-import { GridBuilder } from "./core/drawer/builders/Builders";
+import { GridBuilder } from "./core/drawer/Builders";
 let canvas : HTMLCanvasElement = document.querySelector('#canvas');
 let grid: GridBuilder = new GridBuilder(canvas,100);
-let nodes: GNode[] = [
-    new GNode(1, 1),
-    new GNode(1, 2),
-    new GNode(2, 3),
-    new GNode(3, 5),
-    new GNode(5, 5),
-    new GNode(5, 6),
-    new GNode(7, 6),
-    new GNode(8, 7),
-    new GNode(10, 7)
+let rosario: GNode[] = [
+    new GNode(1, 1, "Cuatro Caminos"),
+    new GNode(2, 2, "Panteones"),
+    new GNode(2, 3)
 ]
-let nodes2: GNode[] = [
-    new GNode(2, 1),
-    new GNode(3, 1),
-    new GNode(4, 2),
-    new GNode(5, 3),
-    new GNode(5, 5),
-    new GNode(7, 4),
-    new GNode(8, 3),
-    new GNode(9, 3),
-    new GNode(9, 2)
+
+let states: string[] = [
+    'red',
+    'green',
 ]
-let states: string[] = []
 let states2: string[] = []
 let paths: IPath[] = [
-    { nodes, linestates: states },
-    {nodes: nodes2, linestates: states2}
+    { nodes: rosario, linestates: states },
 ]
 grid.insertPaths(paths);
 
 grid.build();
+
 
 /* let drawer: Drawer = new Drawer(canvas);
 let nodes: GNode[] = [

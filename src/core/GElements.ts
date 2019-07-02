@@ -3,44 +3,44 @@ export interface GElement {
     y: number;
 }
 export class GText implements GElement {
-    x: number;
-    y:number;
-    text: string;
-    constructor(x: number, y: number, text: string){
+    public x: number;
+    public y: number;
+    public text: string;
+    constructor(x: number, y: number, text: string) {
         this.x = x;
         this.y = y;
         this.text = text;
     }
 }
 export class GNode implements GElement {
-    x: number;
-    y: number;
-    radius: number;
-    name: string;
-    constructor(x:number, y:number, name?: string) {
+    public x: number;
+    public y: number;
+    public radius: number;
+    public name: string;
+    constructor(x: number, y: number, name?: string) {
         this.x = x;
         this.y = y;
         this.radius = 15;
-        if(name != ''){
-            this.name = name
-        }else{
+        if (name !== "") {
+            this.name = name;
+        } else {
             this.name = ".";
-        };
+        }
     }
 }
 export class GLine implements GElement {
-    x: number;
-    y: number;
-    x1: number;
-    y1: number;
-    grosor: number;
-    color?: string;
+    public x: number;
+    public y: number;
+    public x1: number;
+    public y1: number;
+    public grosor: number;
+    public color?: string;
     constructor(x: number, y: number, x1: number, y1: number) {
         this.x = x;
         this.y = y;
         this.x1 = x1;
         this.y1 = y1;
         this.grosor = 19;
-        this.color = ""
+        this.color = "";
     }
 }

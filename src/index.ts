@@ -1,29 +1,25 @@
-import { Drawer} from "./core/drawer/Drawer";
-import { GNode, GLine } from "./core/drawer/GElements";
-import { EDrawer } from "./core/drawer/EDrawer";
-import { Path, IPath } from "./core/drawer/Path";
 import { GridBuilder } from "./core/drawer/Builders";
-let canvas : HTMLCanvasElement = document.querySelector('#canvas');
-let grid: GridBuilder = new GridBuilder(canvas,100);
-let rosario: GNode[] = [
+import { IPath } from "./core/drawer/Path";
+import { GNode } from "./core/GElements";
+
+const canvas: HTMLCanvasElement = document.querySelector('#canvas');
+const grid: GridBuilder = new GridBuilder(canvas, 100);
+const rosario: GNode[] = [
     new GNode(1, 1, "Cuatro Caminos"),
     new GNode(2, 2, "Panteones"),
-    new GNode(2, 3)
-]
+    new GNode(2, 3, "Chabacano"),
+];
 
-let states: string[] = [
-    'red',
+const states: string[] = [
     'green',
-]
-let states2: string[] = []
-let paths: IPath[] = [
+    'orange',
+];
+const paths: IPath[] = [
     { nodes: rosario, linestates: states },
-]
+];
 grid.insertPaths(paths);
 
 grid.build();
-
-
 /* let drawer: Drawer = new Drawer(canvas);
 let nodes: GNode[] = [
     new GNode(100,100),

@@ -1,4 +1,4 @@
-import { GNode } from "../core/drawer/GElements";
+import { GNode } from "../core/GElements";
 
 
 export class Estacion {

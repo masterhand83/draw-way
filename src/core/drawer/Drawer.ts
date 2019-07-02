@@ -1,10 +1,10 @@
-import { GElement, GNode } from "./GElements";
+import { GElement, GNode } from "../GElements";
 
 /**
  * Configuracion general de el proyecto de dibujo.
  */
 interface DConfig {
-    background_color: string
+    background_color: string;
     width: number;
     height: number;
 }
@@ -18,7 +18,7 @@ export interface AccionConfig {
     strokecolor?: string;
     isPath?: boolean;
     textColor?: string;
-    textFont?:string;
+    textFont?: string;
 }
 /**
  * Drawer es la clase base para todas las acciones de dibujo relacionados con HTMLCanvas.
@@ -27,29 +27,30 @@ export interface AccionConfig {
  * @param {HTMLCanvasElement} canvas - El elemento "Canvas" que se utiliza para el dibujado
  */
 export class Drawer {
-    canvas: HTMLCanvasElement;
-    ctx: CanvasRenderingContext2D;
-    config: DConfig;
+    public canvas: HTMLCanvasElement;
+    public ctx: CanvasRenderingContext2D;
+    public config: DConfig;
     private readonly def_fillStyle = "#FFF";
     private readonly def_strokeStyle = "#000";
     private readonly def_textFont = "normal 17px sans-serif,Arial";
+
     constructor(canvas: HTMLCanvasElement) {
-        this.canvas = <HTMLCanvasElement>canvas;
-        this.ctx = this.canvas.getContext('2d');
+        this.canvas = canvas as HTMLCanvasElement;
+        this.ctx = this.canvas.getContext("2d");
         this.config = {
             background_color: '#FFFFFF',
+            height: 2300,
             width: 1200,
-            height: 2300
         };
     }
     /**
      * Inicializa el lienzo de trabajo.
      */
-    inicializar() : void {
+    public inicializar(): void {
         this.canvas.height = this.config.height;
         this.canvas.width = this.config.width;
         this.ctx.fillStyle = this.config.background_color;
-        this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.save();
     }
     /**
@@ -58,13 +59,23 @@ export class Drawer {
      * @param fn la funcion para interactuar con el lienzo
      * @param config la configuracion inicial de la acción
      */
-    draw(fn:(context: CanvasRenderingContext2D) => void, config: AccionConfig){
+    public draw(fn: (context: CanvasRenderingContext2D) => void,
+    config: AccionConfig) {
         this.setContext(config);
         this.ctx.beginPath();
         fn(this.ctx);
         this.ctx.closePath();
         if (config.fill) this.ctx.fill();
         if (config.stroke) this.ctx.stroke();
+    }
+
+    public restaurarPagina() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.inicializar();
+    }
+    public setConfig(newConfig: DConfig) {
+        this.config = newConfig;
+        this.restaurarPagina();
     }
 
     private setContext(config: AccionConfig): void {
@@ -76,14 +87,5 @@ export class Drawer {
         if (config.fillcolor) this.ctx.fillStyle = config.fillcolor;
         if (config.strokecolor) this.ctx.strokeStyle = config.strokecolor;
         if (config.textFont) this.ctx.font = config.textFont;
-    }
-
-    restaurarPagina(){
-        this.ctx.clearRect(0,0,this.canvas.width, this.canvas.height);
-        this.inicializar();
-    }
-    setConfig(newConfig:DConfig){
-        this.config = newConfig;
-        this.restaurarPagina();
     }
 }

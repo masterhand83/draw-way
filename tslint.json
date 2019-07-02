@@ -1,0 +1,12 @@
+{
+    "extends": "tslint:recommended",
+    "rules": {
+        "max-classes-per-file": false,
+        "interface-name":false,
+        "prefer-for-of":false,
+        "variable-name":false,
+        "quotemark":false,
+        "curly": false,
+        "align":false
+    }
+}

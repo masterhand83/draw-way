@@ -2,7 +2,10 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es5",
-        "sourceMap": true
+        "sourceMap": true,
+        "plugins": [{
+            "name": "typescript-tslint-plugin"
+        }]
     },
     "exclude": ["node_modules"]
 }

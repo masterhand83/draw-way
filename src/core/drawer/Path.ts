@@ -6,9 +6,9 @@ export interface IPath {
     linestates: string[];
 }
 export class Path {
-    private nodes: GNode[];
+    public nodes: GNode[];
+    public lineStates: string[];
     private edrawer: EDrawer;
-    private lineStates: string[];
     private lines: GLine[];
     constructor(edrawer: EDrawer, path?: IPath) {
         this.edrawer = edrawer;
@@ -45,7 +45,7 @@ export class Path {
 
     private drawNode(node: GNode, config: AccionConfig) {
         const textX = node.x - node.radius;
-        const texY = node.y - 5 - node.radius;
+        const texY = node.y - 10 - node.radius;
         this.edrawer.drawElement(node, config);
         if (node.name) {
             this.edrawer.drawElement(new GText(textX, texY, node.name), null);

@@ -32,7 +32,7 @@ export class Drawer {
     public config: DConfig;
     private readonly def_fillStyle = "#FFF";
     private readonly def_strokeStyle = "#000";
-    private readonly def_textFont = "normal 17px sans-serif,Arial";
+    private readonly def_textFont = "normal 17px Roboto, Arial";
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas as HTMLCanvasElement;
@@ -46,11 +46,20 @@ export class Drawer {
     /**
      * Inicializa el lienzo de trabajo.
      */
-    public inicializar(): void {
-        this.canvas.height = this.config.height;
-        this.canvas.width = this.config.width;
+    public inicializar(scale?: number): void {
+        this.configInit();
+        const dpr: number = window.devicePixelRatio || 1;
+        const rect = this.canvas.getBoundingClientRect();
+        this.canvas.width = rect.width * dpr;
+        this.canvas.height = rect.width * dpr;
         this.ctx.fillStyle = this.config.background_color;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        // console.log(scale)
+        if (scale) {
+            this.ctx.scale(dpr * scale, dpr * scale);
+        } else {
+            this.ctx.scale(dpr, dpr);
+        }
         this.ctx.save();
     }
     /**
@@ -61,6 +70,7 @@ export class Drawer {
      */
     public draw(fn: (context: CanvasRenderingContext2D) => void,
     config: AccionConfig) {
+
         this.setContext(config);
         this.ctx.beginPath();
         fn(this.ctx);
@@ -69,9 +79,13 @@ export class Drawer {
         if (config.stroke) this.ctx.stroke();
     }
 
-    public restaurarPagina() {
+    public restaurarPagina(scale?: number) {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.inicializar();
+        if (scale) {
+            this.inicializar(scale);
+        }else {
+            this.inicializar();
+        }
     }
     public setConfig(newConfig: DConfig) {
         this.config = newConfig;
@@ -87,5 +101,10 @@ export class Drawer {
         if (config.fillcolor) this.ctx.fillStyle = config.fillcolor;
         if (config.strokecolor) this.ctx.strokeStyle = config.strokecolor;
         if (config.textFont) this.ctx.font = config.textFont;
+    }
+    private configInit(){
+        this.canvas.height = this.config.height;
+        this.canvas.width = this.config.width;
+
     }
 }

@@ -1,10 +1,11 @@
+import { GNode } from "../GElements";
 import { Drawer } from "./Drawer";
 import { EDrawer } from "./EDrawer";
 import { IPath, Path } from "./Path";
-import { GNode } from "../GElements";
 
 export class GridBuilder {
     public scale: number;
+    public current_zoom: number;
     private paths: Path[];
     private drawer: Drawer;
     private edrawer: EDrawer;
@@ -14,6 +15,7 @@ export class GridBuilder {
         this.edrawer = new EDrawer(this.drawer);
         this.paths = [];
         this.scale = grid_scale;
+        this.current_zoom = 1;
     }
 
     public insertPaths(ipaths: IPath[]) {
@@ -31,21 +33,22 @@ export class GridBuilder {
     }
 
     public buildAndShow() {
-        this.drawer.inicializar(1);
+        this.drawer.inicializar(this.current_zoom);
         this.build();
     }
-    public zoom(scale: number){
-        this.drawer.restaurarPagina(scale);
+    public zoom(scale: number) {
+        this.current_zoom = scale;
+        this.drawer.restaurarPagina(this.current_zoom);
         this.build();
     }
-    public moveCamera(dir: string,force: number){
-            let ipaths: IPath[] = [];
+    public moveCamera(dir: string, force: number) {
+            const ipaths: IPath[] = [];
             for (let i = 0; i < this.paths.length; i++) {
                 const path: IPath = {
                     linestates: this.paths[i].lineStates,
                     nodes: this.paths[i].nodes,
-                }
-                path.nodes.map((node) =>{
+                };
+                path.nodes.map((node) => {
                     return this.recalculatePos(node, force, dir);
                 });
                 ipaths.push(path);
@@ -54,6 +57,7 @@ export class GridBuilder {
             this.buildAndShow();
 
     }
+
     private build() {
         if (this.paths.length > 0) {
             for (const path of this.paths) {
@@ -62,21 +66,23 @@ export class GridBuilder {
             }
         }
     }
+
     private normalizePosition(pos: number): number {
-        return pos/this.scale;
+        return pos / this.scale;
     }
-    private recalculatePos(node:GNode, force: number, dir: string): GNode{
-        let n = node;
+
+    private recalculatePos(node: GNode, force: number, dir: string): GNode {
+        const n = node;
         if (dir === "left") {
             n.x = this.normalizePosition(n.x) + force;
             n.y = this.normalizePosition(n.y);
-        } else if (dir === "right"){
+        } else if (dir === "right") {
             n.x = this.normalizePosition(n.x) - force;
             n.y = this.normalizePosition(n.y);
-        } else if (dir === "up"){
+        } else if (dir === "up") {
             n.x = this.normalizePosition(n.x) ;
             n.y = this.normalizePosition(n.y) + force;
-        } else if (dir === "down"){
+        } else if (dir === "down") {
             n.x = this.normalizePosition(n.x);
             n.y = this.normalizePosition(n.y) - force;
         }

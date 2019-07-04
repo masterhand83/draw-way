@@ -9,7 +9,7 @@ const rosario: GNode[] = [
     new GNode(1, 1, "Cuatro Caminos"),
     new GNode(2, 2, "Panteones"),
     new GNode(2, 3, "Chabacano"),
-    new GNode(4, 2, "Popotla"),
+    new GNode(4, 3, "Popotla"),
 ];
 const listener = new ClickListener(canvas, rosario[1]);
 listener.listen({data: "DUMMY DATA"}, (data) => {

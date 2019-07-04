@@ -20,7 +20,7 @@ export class GNode implements GElement {
     constructor(x: number, y: number, name?: string) {
         this.x = x;
         this.y = y;
-        this.radius = 15;
+        this.radius = 16;
         if (name !== "") {
             this.name = name;
         } else {

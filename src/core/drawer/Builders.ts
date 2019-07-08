@@ -17,7 +17,6 @@ export class GridBuilder {
         this.scale = grid_scale;
         this.current_zoom = 1;
     }
-
     public insertPaths(ipaths: IPath[]) {
         this.paths = [];
         for (let i = 0; i < ipaths.length; i++) {
@@ -30,6 +29,9 @@ export class GridBuilder {
             });
             this.paths.push(new Path(this.edrawer, path));
         }
+    }
+    public insertPath(ipath: IPath){
+        this.insertPaths([ipath]);
     }
 
     public buildAndShow() {

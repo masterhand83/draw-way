@@ -1,9 +1,11 @@
 import { GridBuilder } from "./core/drawer/Builders";
-import { IPath } from "./core/drawer/Path";
-import { GNode } from "./core/GElements";
-import { SListener, ClickListener } from "./core/listener/SListener";
-
-const canvas: HTMLCanvasElement = document.querySelector('#canvas');
+import { Estacion } from "./core/templater/models/Estacion";
+import { Linea } from "./core/templater/models/Linea";
+import { Templater } from "./core/templater/templater";
+import { TestTemplate } from "./core/templater/templates/Test.template";
+const templater: Templater = new Templater(new TestTemplate());
+console.log(templater);
+/* const canvas: HTMLCanvasElement = document.querySelector('#canvas');
 const grid: GridBuilder = new GridBuilder(canvas, 100);
 const rosario: GNode[] = [
     new GNode(1, 1, "Cuatro Caminos"),
@@ -24,7 +26,7 @@ const paths: IPath[] = [
     { nodes: rosario, linestates: states },
 ];
 grid.insertPaths(paths);
-grid.buildAndShow();
+grid.buildAndShow(); */
 
 // const n = 1;
 /*

@@ -5,7 +5,8 @@
         "sourceMap": true,
         "plugins": [{
             "name": "typescript-tslint-plugin"
-        }]
+        }],
+        "downlevelIteration": true,
     },
     "exclude": ["node_modules"]
 }

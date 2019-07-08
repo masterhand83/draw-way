@@ -32,7 +32,7 @@ export class Drawer {
     public config: DConfig;
     private readonly def_fillStyle = "#FFF";
     private readonly def_strokeStyle = "#000";
-    private readonly def_textFont = "normal 17px Roboto, Arial";
+    private readonly def_textFont = "normal 10pt Roboto, Arial";
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas as HTMLCanvasElement;

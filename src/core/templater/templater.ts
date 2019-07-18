@@ -5,8 +5,9 @@ export class Templater {
     private canvas: HTMLCanvasElement;
     private grid: GridBuilder;
     private template: ITemplate;
-    constructor(template: ITemplate){
-        this.canvas = document.getElementById('metropoli-canvas') as HTMLCanvasElement;
+    constructor(template: ITemplate) {
+        this.canvas = document
+                        .getElementById('metropoli-canvas') as HTMLCanvasElement;
         this.grid = new GridBuilder(this.canvas, 100);
         this.template = template;
         this.processTemplate();
